@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> </title>
+    <style type="text/css">
+        canvas {
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas width="600" height="500">
+        当前浏览器版本不支持, 请更新浏览器
+    </canvas>
+    <canvas width="600" height="500">
+        当前浏览器版本不支持, 请更新浏览器
+    </canvas>
+    <script src="/js/canvas.js"></script>
+    <script type="text/javascript">
+        // 获取 画布对象
+        var canvas = document.getElementsByTagName("canvas")[0];
+        // 获取画布上下文
+        var ctx = canvas.getContext("2d");
+        // 获取 画布对象
+        var canvas2 = document.getElementsByTagName("canvas")[1];
+        // 获取画布上下文
+        var ctx2 = canvas2.getContext("2d");
+        ctx.save();
+        ctx2.save();
+        ctxOnload(ctx);
+        ctxOnload(ctx2);
+        ctx.fillRect(0, 0, 100, 100);
+
+        // transform() 使用矩阵多次叠加当前变换的方法，矩阵由方法的参数进行描述。你可以缩放、旋转、移动和倾斜上下文。
+        // 不会覆盖当前的变换矩阵，会多次叠加变换
+        // a (m11) : 水平缩放
+        // b (m12) 垂直倾斜。
+        // c (m21) 水平倾斜。
+        // d (m22) 垂直缩放。
+        // e (dx) 水平移动。
+        // f (dy) 垂直移动
+        ctx.transform(1, 0.5, 0, 1, 120, 0);
+        ctx.fillRect(0, 0, 100, 100);
+
+        // setTransform() 方法， 这个方法使用单位矩阵重新设置当前的变换并且会调用 transform()。
+        // 使用单位矩阵重新设置（覆盖）当前的变换并调用变换的方法，此变换由方法的变量进行描述。
+        // 参数与 transform() 一致
+        ctx.setTransform(1, 0, 0.5, 1, 240, 0);
+        ctx.fillRect(0, 0, 100, 100);
+
+        ctx.setTransform(1, 0.5, 0.5, 1, 360, 0);
+        ctx.fillRect(0, 0, 100, 100);
+
+
+        ctx.setTransform(1.5, 0, 0, 1, 0, 200);
+        ctx.fillRect(0, 0, 100, 100);
+
+        ctx.setTransform(1, 0, 0, 1.5, 170, 200);
+        ctx.fillRect(0, 0, 100, 100);
+        ctx.setTransform(1.5, 0, 0, 1.5, 300, 200);
+        ctx.fillRect(0, 0, 100, 100);
+    </script>
+</body>
+
+</html>

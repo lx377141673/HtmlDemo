@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>canvas_碰壁折返小球_小球连线 </title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            border: none;
+        }
+        
+        canvas {
+            background-color: #fff;
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas>
+        当前浏览器版本不支持, 请更新浏览器
+    </canvas>
+    <script type="text/javascript">
+        // 获取 画布对象
+        var canvas = document.getElementsByTagName("canvas")[0];
+        // 获取画布上下文
+        var ctx = canvas.getContext("2d");
+        // 设置画布 canvas 宽高为 屏幕宽高
+        canvas.width = document.documentElement.clientWidth;
+        canvas.height = document.documentElement.clientHeight;
+        // 小球对象管理数组
+        var ballArray = [];
+
+        // 小球对象
+        function Ball(ctx) {
+            // 所属画布
+            this.ctx = ctx;
+            // 圆半径
+            this.r = 10;
+            // 圆 颜色
+            this.color = "blue"
+                // 出现坐标 x
+            this.x = parseInt(Math.random() * canvas.width);
+            // 出现坐标 y
+            this.y = parseInt(Math.random() * canvas.height);
+
+            // 校正 小球的坐标, 避免小球出现在 画布之外
+            this.x = this.x < this.r ? this.r : this.x;
+            this.x = this.x > canvas.width - this.r ? canvas.width - this.r : this.x;
+
+            this.y = this.y < this.r ? this.r : this.y;
+            this.y = this.y > canvas.height - this.r ? canvas.width - this.r : this.y;
+
+            // x坐标行进增量
+            this.dx = parseInt(Math.random() * 10);
+            // y坐标行进增量
+            this.dy = parseInt(Math.random() * 10);
+
+            this.dx = this.dx == 0 ? parseInt(Math.random() * 10) : this.dx;
+            this.dy = this.dy == 0 ? parseInt(Math.random() * 10) : this.dy;
+
+
+
+            // 初始化时, 加入 小球数组 进行管理
+            ballArray.push(this);
+            this.index = ballArray.length - 1;
+        }
+
+        // 小球的渲染
+        Ball.prototype.render = function() {
+            this.ctx.beginPath();
+            ctx.globalAlpha = 1;
+            ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2, false);
+            ctx.globalAlpha = 0.7
+            ctx.fillStyle = this.color;
+            ctx.fill();
+
+            //  连线
+            // 小球间隔 连线条件
+            var spacing = 250;
+            for (var i = this.index; i < ballArray.length; i++) {
+                // Math.abs : 取绝对值
+                // 如果, 当前小球与 遍历的小球 x轴 与y轴的距离差都为 spacing 时, 为两球添加连线
+                if (Math.abs(ballArray[i].x - this.x) < spacing && Math.abs(ballArray[i].y - this.y) < spacing) {
+                    ctx.beginPath();
+                    ctx.moveTo(ballArray[i].x, ballArray[i].y);
+                    ctx.lineTo(this.x, this.y);
+                    ctx.closePath();
+                    // 设置 连线透明度 (0~1), 距离越远 越透明
+                    // Math.sqrt: 开方, 平方根
+                    // Math.pow: 乘阶
+                    ctx.globalAlpha = 10 / (Math.sqrt(Math.pow(ballArray[i].x - this.x, 2) + Math.pow(ballArray[i].y - this.y, 2)));
+                    ctx.strokeStyle = "blue";
+                    ctx.lineWidth = 1;
+                    ctx.stroke();
+                }
+            }
+
+
+        }
+
+        // 小球更新
+        Ball.prototype.update = function() {
+            this.x += this.dx;
+            this.y += this.dy;
+
+            // 如果小球 碰壁, 则通过 改变行进增量(取反), 往反方向行进
+            this.dx = this.x < this.r || this.x > canvas.width - this.r ? -this.dx : this.dx;
+            this.dy = this.y < this.r || this.y > canvas.height - this.r ? -this.dy : this.dy;
+        }
+
+        // 初始化小球
+        var one = new Ball(ctx);
+        for (let i = 1; i < 100; i++) {
+            var temp = new Ball(ctx);
+        }
+
+
+        setInterval(() => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < ballArray.length; i++) {
+                ballArray[i].update();
+                ballArray[i].render();
+            }
+        }, 10);
+    </script>
+</body>
+
+</html>

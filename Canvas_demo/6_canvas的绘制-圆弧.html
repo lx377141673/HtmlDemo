@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>canvas的绘制-圆弧 </title>
+    <style type="text/css">
+        canvas {
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas width="600" height="500">
+        当前浏览器版本不支持, 请更新浏览器
+    </canvas>
+    <script type="text/javascript">
+        // 获取 画布对象
+        var canvas = document.getElementsByTagName("canvas")[0];
+        // 获取画布上下文
+        var ctx = canvas.getContext("2d");
+        // 开始路径
+        ctx.beginPath();
+
+        // arc(x, y, radius, startAngle, endAngle, anticlockwise)
+        // 画一个以（x,y）为圆心的以radius为半径的圆弧（圆），即需预留的位置为 2r
+        // 从startAngle开始到endAngle结束，表示一个圆的圆弧, (一个圆的圆弧 为 2 * Math.PI,约等于七个弧度)
+        // 按照anticlockwise给定的方向（默认为顺时针）来生成。false 为顺时针 表示 从 0 绘制到 7, true 为逆时针 表示 从 0 绘制到 1
+        // 四分之一圆
+        ctx.arc(50, 75, 50, 0, Math.PI / 2, false);
+        ctx.moveTo(250, 75);
+        // 半圆
+        ctx.arc(200, 75, 50, 0, Math.PI, false);
+        ctx.moveTo(400, 75);
+        // 四分之三圆
+        ctx.arc(350, 75, 50, 0, Math.PI * 1.5, false);
+        ctx.moveTo(550, 75);
+        // 整圆
+        ctx.arc(500, 75, 50, 0, Math.PI * 2, false);
+        ctx.stroke()
+
+        ctx.beginPath();
+        // 四分之一圆
+        ctx.arc(50, 225, 50, Math.PI * 1.5, Math.PI, true);
+        ctx.moveTo(250, 225);
+        // 半圆
+        ctx.arc(200, 225, 50, 0, Math.PI, true);
+        ctx.moveTo(350, 275);
+        // 四分之三圆
+        ctx.arc(350, 225, 50, Math.PI * 0.5, Math.PI, true);
+        ctx.moveTo(550, 225);
+        // 整圆
+        ctx.arc(500, 225, 50, Math.PI * 2, 0, true);
+        ctx.stroke();
+    </script>
+</body>
+
+</html>

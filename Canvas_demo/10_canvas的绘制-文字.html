@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> </title>
+    <style type="text/css">
+        canvas {
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas width="600" height="500">
+        当前浏览器版本不支持, 请更新浏览器
+    </canvas>
+    <canvas width="600" height="500">
+        当前浏览器版本不支持, 请更新浏览器
+    </canvas>
+    <canvas width="600" height="500">
+        当前浏览器版本不支持, 请更新浏览器
+    </canvas>
+    <script type="text/javascript">
+        // 获取 画布对象
+        var canvas = document.getElementsByTagName("canvas")[1];
+        // 获取画布上下文
+        var ctx = canvas.getContext("2d");
+
+        // 获取 画布对象
+        var canvas2 = document.getElementsByTagName("canvas")[0];
+        // 获取画布上下文
+        var ctx2 = canvas2.getContext("2d");
+        // 获取 画布对象
+        var canvas3 = document.getElementsByTagName("canvas")[2];
+        // 获取画布上下文
+        var ctx3 = canvas3.getContext("2d");
+
+
+        // 设置字体样式 , 大小, 字体
+        ctx.font = "50px 宋体";
+        // 设置字体水平对齐方式 
+        // 齐是基于CanvasRenderingContext2D.fillText方法的x的值
+        // 如果textAlign="center"，那么该文本将画在 x-50%*width。
+
+        // 文本居中对齐。
+        ctx.textAlign = "center";
+        // 文本左对齐。
+        ctx.textAlign = "left";
+        // 文本右对齐
+        ctx.textAlign = "right";
+        // 默认 
+        // 文本对齐界线开始的地方 （左对齐指本地从左向右，右对齐指本地从右向左）。
+        ctx.textAlign = "start";
+        // 文本对齐界线结束的地方 （左对齐指本地从左向右，右对齐指本地从右向左）。
+        ctx.textAlign = "end";
+
+        // 设置 文字垂直方向的对齐方式。
+
+        // 文本基线在文本块的顶部。
+        ctx.textBaseline = "top"
+            // 文本基线是悬挂基线
+        ctx.textBaseline = "hanging";
+        // 文本基线在文本块的中间。
+        ctx.textBaseline = "middle";
+        // 默认值
+        // 文本基线是标准的字母基线。
+        ctx.textBaseline = "alphabetic";
+        // 文字基线是表意字基线；如果字符本身超出了alphabetic 基线，那么ideographic基线位置在字符本身的底部。
+        ctx.textBaseline = "ideographic";
+
+        // 文本基线在文本块的底部。 与 ideographic 基线的区别在于 ideographic 基线不需要考虑下行字母。
+        ctx.textBaseline = "bottom";
+
+        // 渲染字体 , 文字内容, 文字 x坐标, 文字 y坐标
+        // ctx.fillText("Hello,World", 100, 100);
+        // ctx.strokeText("Hello,World", 100, 150);
+
+        const baselines = ['top', 'hanging', 'middle', 'alphabetic', 'ideographic', 'bottom'];
+        ctx.font = '36px serif';
+        ctx.strokeStyle = 'red';
+        ctx.textAlign = "start";
+
+        baselines.forEach(function(baseline, index) {
+            ctx.textBaseline = baseline;
+            let y = 75 + index * 75;
+            ctx.beginPath();
+            ctx.moveTo(0, y + 0.5);
+            ctx.lineTo(550, y + 0.5);
+            ctx.stroke();
+            ctx.fillText('Abcdefghijklmnop (' + baseline + ')', 0, y);
+        });
+
+
+
+
+        const textAligns = ["start", "end", "center", "left", "right"];
+        const textAligns2 = ["start ", " end  ", "center", " left ", "right "];
+        ctx2.font = "15px serif";
+        ctx2.strokeStyle = 'red';
+        ctx2.textBaseline = "alphabetic";
+
+
+
+        textAligns.forEach(function(textAlign, index) {
+            ctx2.textAlign = textAlign;
+            let x = 75 + index * 75;
+            ctx2.beginPath();
+            ctx2.moveTo(x + 0.5, 0);
+            ctx2.lineTo(x + 0.5, 550);
+            ctx2.stroke();
+            ctx2.fillText('0123456789 (' + textAligns2[index] + ')', 225, x);
+        });
+
+
+        // 绘制文本时，描述当前文本方向的属性
+        // direction
+        ctx3.font = "20px 宋体";
+        // 默认
+        // 根据情况继承 <canvas> 元素或者 Document
+        ctx3.direction = "inherit";
+        ctx3.fillText("你好", 200, 100);
+
+        // 文本方向从左向右
+        ctx3.direction = "ltr";
+        ctx3.fillText("你好", 200, 150);
+
+        // 文本方向从右向左
+        ctx3.direction = "rtl";
+        ctx3.fillText("你好", 200, 200);
+    </script>
+</body>
+
+</html>

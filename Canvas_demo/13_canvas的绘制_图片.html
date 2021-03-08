@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> </title>
+    <style type="text/css">
+        canvas {
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas width="600" height="500">
+        当前浏览器版本不支持, 请更新浏览器
+    </canvas>
+    <canvas width="600" height="500">
+        当前浏览器版本不支持, 请更新浏览器
+    </canvas>
+    <script type="text/javascript">
+        // 获取 画布对象
+        var canvas = document.getElementsByTagName("canvas")[0];
+        // 获取画布上下文
+        var ctx = canvas.getContext("2d");
+        // 获取 画布对象
+        var canvas2 = document.getElementsByTagName("canvas")[1];
+        // 获取画布上下文
+        var ctx2 = canvas2.getContext("2d");
+        var img = new Image();
+        img.src = '/img/格子图片.png';
+        var img2;
+
+        //  加载图片成功后执行
+        img.onload = function() {
+            // 将图片绘制在  画布中, 宽高为图片本身宽高
+            // 参数: 图片对象, 绘制坐标  x, 绘制坐标  y
+            ctx.drawImage(img, 10, 10);
+            // 将图片绘制在  画布中, 宽高自定义, 同时会自动更加宽高缩放图片
+            // 参数: 图片对象, 绘制坐标  x, 绘制坐标  y , 绘制图片宽度, 绘制图片高度
+            ctx2.drawImage(img, 10, 10, 100, 100);
+
+            // 将图片进行切片, 并会绘制在画布上,
+            // 参数: 图片对象,切片参数(4个),绘制坐标 x, 绘制坐标 y, 绘制图片切宽度, 绘制图片切片高度
+            // 切片参数: 切片 x轴 起始点 , 切片 y轴 起始点, 切片的宽度, 切片的高度
+            ctx2.drawImage(img, 0, 0, 100, 100, 10, 210, 100, 100);
+
+            // 获取指定范围的 图像对象
+            // x,y,w,h
+            img2 = ctx2.getImageData(10, 210, 100, 100);
+            img3 = new Image();
+            img3.src = imageDataToBaseDataURL(img2);
+            // img3.src = 'https://mdn.mozillademos.org/files/222/Canvas_createpattern.png';
+
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            img3.onload = function() {
+                // var pattern = ctx2.createPattern(img3, "repeat-x");
+                // ctx2.fillStyle = pattern;
+                // ctx2.fillRect(0, 340, 100, 100);
+                // console.log(111111)
+                var pattern = ctx.createPattern(img3, 'repeat');
+                ctx.fillStyle = pattern;
+                ctx.fillRect(100, 200, 200, 100);
+
+            }
+
+
+        };
+
+        /** 将 ImageData 转换成 base64*/
+        function imageDataToBaseDataURL(imageData) {
+            if (typeof(imageData) == 'undefined' || imageData === null) {
+                throw new Error("imageData is null");
+                return;
+            }
+            let canvas;
+            try {
+                canvas = document.createElement("canvas");
+                canvas.width = imageData.width;
+                canvas.height = imageData.height;
+                // 将 ImageData 渲染至 canvas中
+                canvas.getContext("2d").putImageData(imageData, 0, 0);
+                // 将 canvas 转换成 base64 图片地址
+                return canvas.toDataURL("image/png", 1);
+            } catch (error) {
+                return error;
+            } finally {
+                delete canvas;
+            }
+        }
+    </script>
+</body>
+
+</html>

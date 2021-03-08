@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> </title>
+    <style type="text/css">
+        canvas {
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas width="600" height="500">
+        当前浏览器版本不支持, 请更新浏览器
+    </canvas>
+    <script type="text/javascript">
+        // 获取 画布对象
+        var canvas = document.getElementsByTagName("canvas")[0];
+        // 获取画布上下文
+        var ctx = canvas.getContext("2d");
+
+        /**
+         *  矩形对象 
+         */
+        function Rect(x, y, width, height, color, ctx) {
+            // 维护矩形状态
+            this.x = x;
+            this.y = y;
+            this.width = width;
+            this.height = height;
+            this.color = color;
+            this.ctx = ctx;
+        };
+        // 更新方法
+        Rect.prototype.update = function() {
+            this.clean();
+            this.x = this.x > canvas.width ? 0 : this.x;
+            this.x++;
+        };
+
+        // 渲染方法
+        Rect.prototype.render = function() {
+            this.clean();
+            this.ctx.fillStyle = "#f00";
+            this.ctx.fillRect(this.x, this.y, this.width, this.height);
+        };
+        // 清除方法
+        Rect.prototype.clean = function() {
+            // 在画布上 清除自己
+            this.ctx.clearRect(this.x, this.y, this.width, this.height);
+        };
+        var rect1 = new Rect(0, 0, 100, 100, "#ff0", ctx);
+        var rect2 = new Rect(100, 200, 100, 100, "#ff0", ctx);
+        setInterval(() => {
+            rect1.update();
+            rect1.render();
+            rect2.update();
+            rect2.render();
+        }, 10);
+    </script>
+</body>
+
+</html>

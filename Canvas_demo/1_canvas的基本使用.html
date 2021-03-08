@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>canvas的基本使用-填充一个矩形</title>
+
+</head>
+
+<body>
+    <canvas width="600" height="500">
+        当前浏览器版本不支持, 请更新浏览器
+    </canvas>
+    <script type="text/javascript">
+        // 获取画布对象
+        var canvas = document.getElementsByTagName("canvas")[0];
+        // 设置 画布边框
+        canvas.style.border = "1px solid #000";
+        // 获取画布上下文
+        var ctx = canvas.getContext("2d");
+        // 设置 准备填充图形的样式
+        ctx.fillStyle = "#f00";
+        // 绘制矩形, x轴坐标, y轴坐标, 矩形宽度, 矩形高度
+        ctx.fillRect(100, 100, 200, 100);
+
+
+        // 设置字体 大小, 样式
+        ctx.font = "20px Georgia";
+        // 创建渐变
+        // var gradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
+        // gradient.addColorStop("0", "magenta");
+        // gradient.addColorStop("0.5", "blue");
+        // gradient.addColorStop("1.0", "red");
+        // 用渐变填色
+        // ctx.fillStyle = "#gradient";
+
+        // 设置字体颜色
+        ctx.fillStyle = "#fff";
+        // 绘制文字 , 文字内容, x轴坐标, y轴坐标;
+        ctx.fillText("Hello World!", 130, 160);
+    </script>
+</body>
+
+</html>

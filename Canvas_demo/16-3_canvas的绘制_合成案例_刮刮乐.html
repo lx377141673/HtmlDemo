@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> 刮刮乐 </title>
+    <style type="text/css">
+        div {
+            border: 1px solid #000;
+            width: 250px;
+            height: 100px;
+            text-align: center;
+            line-height: 100px;
+            font-size: 40px;
+            font-weight: bold;
+            user-select: none;
+            position: relative;
+        }
+        
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        特等奖
+        <canvas width="250" height="100">
+            当前浏览器版本不支持, 请更新浏览器
+         </canvas>
+    </div>
+    <script type="text/javascript">
+        // 获取 画布对象
+        var canvas = document.getElementsByTagName("canvas")[0];
+        // 获取画布上下文
+        var ctx = canvas.getContext("2d");
+        ctx.fillStyle = "#ccc";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        mouseDownAndMove(canvas, function(even) {
+            // 画布 覆盖模式为, 覆盖时,只保留 与新图案不重叠的图案, 即消除新图案覆盖的位置
+            ctx.globalCompositeOperation = "destination-out";
+            ctx.beginPath();
+            ctx.arc(even.offsetX, even.offsetY, 10, 0, 2 * Math.PI, false);
+            ctx.fill();
+        });
+
+
+        /**
+         * 鼠标按下并移动事件
+         * dom : 待绑定的dom 元素
+         * callback: 鼠标按下并移动时 需要执行的函数
+         */
+        function mouseDownAndMove(dom, callback) {
+            // 添加鼠标按下监听
+            dom.addEventListener("mousedown", function(even) {
+                // 当鼠标按下时, 添加鼠标移动监听
+                dom.addEventListener("mousemove", callback)
+            })
+
+            // 添加鼠标弹起监听 , 即鼠标不在按下
+            dom.addEventListener("mouseup", function() {
+                // 此时移除 鼠标移动监听,移除指定 事件函数
+                dom.removeEventListener("mousemove", callback);
+            })
+        }
+    </script>
+</body>
+
+</html>

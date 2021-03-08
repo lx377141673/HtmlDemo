@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> </title>
+    <style type="text/css">
+        canvas {
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas width="600" height="500">
+        当前浏览器版本不支持, 请更新浏览器
+    </canvas>
+    <script type="text/javascript">
+        // 获取 画布对象
+        var canvas = document.getElementsByTagName("canvas")[0];
+        // 获取画布上下文
+        var ctx = canvas.getContext("2d");
+        ctx.fillRect(0, 0, 150, 150);
+        // 保存当前所有状态的快照,,并存入栈中 (先进后出, 后进先出);
+        // 保存到栈中的绘制状态有下面部分组成：
+        //
+        //     当前的变换矩阵。
+        //     当前的剪切区域。
+        //     当前的虚线列表.
+        //     以下属性当前的值： 
+        // strokeStyle, fillStyle, globalAlpha (透明度) , 
+        // lineWidth, lineCap, lineJoin, miterLimit, lineDashOffset, 
+        // shadowOffsetX, shadowOffsetY, shadowBlur, shadowColor,
+        // globalCompositeOperation (设置要在绘制新形状时应用的合成操作的类型，其中type是用于标识要使用的合成或混合模式操作的字符串)
+        // font, textAlign, textBaseline, direction, 
+        // imageSmoothingEnabled (设置图片是否平滑的属)
+        ctx.save();
+
+        ctx.fillStyle = "#00f";
+        ctx.fillRect(15, 15, 120, 120);
+        ctx.save();
+
+        ctx.fillStyle = "#0f0";
+        ctx.fillRect(30, 30, 90, 90);
+
+        // 从栈中取出 上一次保存[ save() ]的状态快照, 并使用
+        // 恢复到最近的保存状态的方法。 如果没有保存状态，此方法不做任何改变
+        ctx.restore();
+        ctx.fillRect(45, 45, 60, 60);
+
+        ctx.restore();
+        ctx.fillRect(60, 60, 30, 30);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> </title>
+    <style type="text/css">
+        canvas {
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas width="1200" height="500">
+        当前浏览器版本不支持, 请更新浏览器
+    </canvas>
+    <script src="/js/canvas.js"></script>
+    <script type="text/javascript">
+        // 获取 画布对象
+        var canvas = document.getElementsByTagName("canvas")[0];
+        // 获取画布上下文
+        var ctx = canvas.getContext("2d");
+        canvas.style.backgroundColor = "#fff"
+
+        function Wheel(color, r) {
+            this.r = r;
+            this.color = color;
+            this.x = 0;
+            this.y = 0;
+        }
+
+        Wheel.prototype.render = function() {
+            // ctx.beginPath();
+            // ctx.arc(0 + this.r, 0 + this.r, this.r, 0, Math.PI * 2, false);
+            // ctx.fillStyle = this.color;
+            // ctx.closePath();
+            // ctx.fill();
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.arc(this.x + this.r, this.y + this.r, this.r, 0, Math.PI * 2, false);
+            ctx.stroke();
+            for (var i = 0; i < 7; i++) {
+                ctx.beginPath();
+                ctx.arc(this.x + this.r, this.y + this.r, this.r, i, i, false);
+                ctx.lineTo(this.x + this.r, this.y + this.r)
+                ctx.closePath();
+                ctx.strokeStyle = getRandomColor();
+                ctx.stroke();
+            }
+
+
+        }
+
+
+        Wheel.prototype.getImage = function() {
+            this.render();
+            let imgDate = ctx.getImageData(0, 0, 100, 100);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            let image = new Image();
+            image.src = imageDataToBaseDataURL(imgDate);
+            return image;
+        }
+
+        var degree = 0;
+        var wheel = new Wheel(getRandomColor(), 50);
+        var image = wheel.getImage();
+        var dx = 200;
+        var dy = 200;
+        image.onload = function() {
+            setInterval(() => {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                degree += 1;
+                let degree2 = degree * Math.PI / 180
+                ctx.save();
+                dx += 1;
+                // ctx.translate(200, 200);
+                ctx.setTransform(1, 0, 0, 1, dx, dy);
+                // 根据 canvas 的起始点进行旋转,如果使用了 translate() 则根据 translate() 方法设置 x,y 作为圆心进行旋转, 圆直径为 图形的宽度
+                // 
+                ctx.rotate(degree2);
+                ctx.drawImage(image, -100 / 2, -100 / 2, 100, 100);
+                ctx.restore();
+            }, 10);
+
+            // 不会覆盖当前的变换矩阵，会多次叠加变换
+            // a (m11) : 水平缩放
+            // b (m12) 垂直倾斜。
+            // c (m21) 水平倾斜。
+            // d (m22) 垂直缩放。
+            // e (dx) 水平移动。
+            // f (dy) 垂直移动
+            // ctx.setTransform(1, 0, 0.1, 1, 0, 0);
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+
+    <title> </title>
+    <style type="text/css">
+        canvas {
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+
+<body>
+
+    <canvas width="600" height="600">
+        当前浏览器版本不支持, 请更新浏览器
+    </canvas>
+    <script type="text/javascript">
+        // 获取 画布对象
+        var canvas = document.getElementsByTagName("canvas")[0];
+        // 获取画布上下文
+        var ctx = canvas.getContext("2d");
+
+        // 记录所有小球数组
+        var ballArray = [];
+
+        // 小球对象函数
+        function Ball(x, y, r, ctx) {
+            this.x = x;
+            this.y = y;
+            this.r = r;
+            this.ctx = ctx;
+            // 随机获取颜色
+            this.color = getRandomColor();
+            // 随机获取 x轴偏移量
+            this.dx = parseInt(Math.random() * 10) - 5;
+            // 随机获取 y轴偏移量
+            this.dy = parseInt(Math.random() * 10) - 5;
+            // 初始化小球时, 将当前小球对象, 加入到 小球数组管理
+            ballArray.push(this);
+
+        };
+
+        // 更新小球操作, 修改 小球坐标, 修改小球大小, 并管理小球对象的删除条件
+        Ball.prototype.update = function() {
+            this.x += this.dx;
+            this.y += this.dy;
+            this.r -= 0.1;
+            if (this.r <= 0) {
+                this.remove();
+                return false;
+            }
+            return true;
+        };
+
+        // 渲染小球
+        Ball.prototype.render = function() {
+            this.ctx.beginPath();
+            this.ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2, false);
+            this.ctx.closePath();
+            this.ctx.fillStyle = this.color;
+            this.ctx.fill();
+        };
+
+        // 删除小球对象, 并从小球数组中移除
+        Ball.prototype.remove = function() {
+            for (var i = 0; i < ballArray.length; i++) {
+                if (ballArray[i] === this) {
+                    ballArray.splice(i, 1);
+                }
+            }
+        };
+
+
+        // 随机获取颜色信息
+        function getRandomColor() {
+            var colorNum = "0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f";
+            var colorArray = colorNum.split(",");
+            var color = "#";
+            for (var i = 0; i < 6; i++) {
+                var index = parseInt(Math.random() * colorArray.length);
+                color += colorArray[index];
+            }
+            return color;
+        }
+
+        var flag = false;
+
+        // 为 画布添加 鼠标移动监听
+        // 当鼠标在画布内移动时, 会新建一个小球, 并加入到小球数组管理中
+        canvas.addEventListener("mousemove", function(event) {
+            if (flag) {
+                var ball = new Ball(event.offsetX, event.offsetY, 10, ctx);
+            }
+            // ball.render();
+        })
+        canvas.addEventListener("mousedown", function(event) {
+            flag = true;
+            // ball.render();
+        })
+        canvas.addEventListener("mouseup", function(event) {
+            flag = false;
+            // ball.render();
+        })
+        canvas.addEventListener("mouseout", function(event) {
+            flag = false;
+            // ball.render();
+        })
+
+        canvas.addEventListener("dblclick", function(event) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ballArray = [];
+            console.log("111111111111")
+        })
+
+        canvas.addEventListener("touchmove", function(event) {
+            var ball = new Ball(event.targetTouches[0].clientX, event.targetTouches[0].clientY, 10, ctx);
+
+        });
+
+
+
+        // 运行小球动画
+        setInterval(() => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (var i = 0; i < ballArray.length; i++) {
+                // if (ballArray[i].update()) {
+                //     ballArray[i].render();
+                // }
+                ballArray[i].render();
+            }
+        }, 10);
+    </script>
+</body>
+
+</html>

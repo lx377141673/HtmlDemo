@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>观察 画布清除操作</title>
+    <style type="text/css">
+        canvas {
+            border: 1px solid #000;
+            background-color: #000;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <button type="button" id="btn1" onclick="canvas_onload()">刷新</button>
+        <button type="button" id="btn2" title="删除 第二列,第二行的图案">删除</button>
+    </div>
+    <canvas width="600" height="500">
+        当前浏览器版本不支持, 请更新浏览器
+    </canvas>
+    <script type="text/javascript">
+        // 获取 画布对象
+        var canvas = document.getElementsByTagName("canvas")[0];
+        // 获取画布上下文
+        var ctx = canvas.getContext("2d");
+
+        var d_width = 50;
+        var d_height = 50;
+        var x = 0;
+        var y = 0;
+
+        /** 加载画布图案
+         * 为画布, 填满 50*50的矩形
+         */
+        function canvas_onload() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let x = 0; x < canvas.width; x = x + d_width) {
+                for (let y = 0; y < canvas.height; y = y + d_height) {
+                    ctx.fillStyle = getRandColor();
+                    ctx.fillRect(x, y, d_width, d_height);
+                    ctx.font = "10px Georgia";
+                    ctx.fillStyle = getRandColor();
+                    ctx.fillText((x + d_width) + "/" + (y + d_height), x + 5, y + 10 + 5);
+                }
+            }
+        }
+
+
+        /** 获取随机颜色样式 */
+        function getRandColor() {
+            var colorNum = "0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f";
+            var colorArray = colorNum.split(',');
+            var color = "#";
+            for (var i = 0; i < 6; i++) {
+                var colorIndex = parseInt(Math.random() * colorArray.length);
+                color += colorArray[colorIndex];
+            }
+            return color;
+        }
+
+        canvas_onload();
+
+        // 清除指定位置的图案
+        //  删除 第二列,第二行的图案
+        document.getElementById("btn2").addEventListener("click", function() {
+            ctx.clearRect(50, 50, 50, 50);
+        })
+    </script>
+</body>
+
+</html>

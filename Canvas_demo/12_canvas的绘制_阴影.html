@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> </title>
+    <style type="text/css">
+        canvas {
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas width="600" height="500">
+        当前浏览器版本不支持, 请更新浏览器
+    </canvas>
+    <script type="text/javascript">
+        // 获取 画布对象
+        var canvas = document.getElementsByTagName("canvas")[0];
+        canvas.style.backgroundColor = "#ccc"
+            // 获取画布上下文
+        var ctx = canvas.getContext("2d");
+        ctx.font = "40px 宋体"
+
+        // 描述模糊效果程度的属性； 它既不对应像素值也不受当前转换矩阵的影响。 默认值是 0
+        // 负数、 Infinity 或者 NaN 都会被忽略
+        ctx.shadowBlur = 5;
+        // 描述阴影颜色的属性。
+        // 默认值是 fully-transparent black.
+        ctx.shadowColor = "#f00";
+        // 描述阴影水平偏移距离的属性。 即偏移 x轴的偏移量
+        // float类型的值。默认值是 0
+        ctx.shadowOffsetX = 10;
+        // 描述阴影垂直偏移距离的属性。即 偏移 y轴的偏移量
+        // loat类型的值。 默认值是 0
+        ctx.shadowOffsetY = 10;
+        ctx.fillText("Hello,World", 50, 200)
+
+        ctx.shadowColor = "black";
+        ctx.shadowBlur = 10;
+        ctx.fillStyle = "white";
+        ctx.fillRect(10, 10, 100, 100);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> </title>
+    <style type="text/css">
+        canvas {
+            border: 1px solid rgb(0, 0, 0);
+        }
+    </style>
+</head>
+
+<body>
+    <canvas width="600" height="500">
+        当前浏览器版本不支持, 请更新浏览器
+    </canvas>
+    <canvas width="600" height="500">
+        当前浏览器版本不支持, 请更新浏览器
+    </canvas>
+    <script type="text/javascript">
+        // 获取 画布对象
+        var canvas = document.getElementsByTagName("canvas")[0];
+        // 获取画布上下文
+        var ctx = canvas.getContext("2d");
+        // 获取 画布对象
+        var canvas2 = document.getElementsByTagName("canvas")[1];
+        // 获取画布上下文
+        var ctx2 = canvas2.getContext("2d");
+
+        // 线性渐变
+        // 创建一个沿参数坐标指定的直线的渐变
+        // 渐变起始 x,渐变起始 y,渐变终点 x, 渐变终点 y , 需要渐变的内容, 必须被这块区域覆盖, 否则不起作用
+        var ctxGradient = ctx.createLinearGradient(0, 0, 300, 300);
+        // 设置渐变 指定区间 以及对应的 颜色 , 区间范围 0 ~ 1;
+        ctxGradient.addColorStop(0, "#ff0000");
+        ctxGradient.addColorStop(0.2, "#00ff00");
+        ctxGradient.addColorStop(0.4, "#0000ff");
+        ctxGradient.addColorStop(0.6, "#ffff00");
+        ctxGradient.addColorStop(0.8, "#ff00ff");
+        ctxGradient.addColorStop(1, "#00ffff");
+
+        ctx.fillStyle = ctxGradient;
+        ctx.fillRect(0, 0, 300, 300);
+
+        // 可设置在 文字上
+        var ctxGradient = ctx.createLinearGradient(350, 150, 460, 190);
+        ctxGradient.addColorStop(0, "#ff0000");
+        ctxGradient.addColorStop(0.2, "#ff00ff");
+        ctxGradient.addColorStop(0.4, "#00ffff");
+        ctxGradient.addColorStop(0.6, "#00ff00");
+        ctxGradient.addColorStop(0.8, "#0f0");
+        ctxGradient.addColorStop(1, "#00f");
+        ctx.font = "40px 宋体";
+        ctx.fillStyle = ctxGradient;
+        ctx.fillText("hello,world", 350, 150);
+
+        // 也可设置在 线段上 
+        var ctxGradient = ctx.createLinearGradient(50, 350, 350, 450);
+        ctxGradient.addColorStop(0, "#ff0000");
+        ctxGradient.addColorStop(0.2, "#ff00ff");
+        ctxGradient.addColorStop(0.4, "#00ffff");
+        ctxGradient.addColorStop(0.6, "#00ff00");
+        ctxGradient.addColorStop(0.8, "#0f0");
+        ctxGradient.addColorStop(1, "#00f");
+        ctx.beginPath();
+        ctx.moveTo(50, 350);
+        ctx.lineTo(250, 350);
+        ctx.lineTo(150, 450);
+        ctx.lineWidth = 10;
+        ctx.strokeStyle = ctxGradient;
+        ctx.closePath();
+        ctx.stroke();
+
+        // 放射性渐变 , 以圆形 从外向内 渐变颜色
+        // 外圈圆 x, 外圈圆 y, 外圈圆 r, 内圈圆 x, 内圈圆 y, 内圈圆 r
+        // 渲染渐变的范围, 在 外圈与内圈之间覆盖的区域
+        var ctx2Gradient = ctx2.createRadialGradient(100, 100, 100, 100, 100, 0);
+        ctx2Gradient.addColorStop(0, "#f00");
+        ctx2Gradient.addColorStop(0.5, "#0f0");
+        ctx2Gradient.addColorStop(0.7, "#f0f");
+        ctx2Gradient.addColorStop(1, "#00f");
+        ctx2.beginPath();
+        ctx2.arc(100, 100, 100, 0, 2 * Math.PI, false);
+        ctx2.fillStyle = ctx2Gradient;
+        ctx2.fill();
+        ctx2.stroke();
+
+        var ctx2Gradient = ctx2.createRadialGradient(100, 300, 150, 100, 300, 0);
+        ctx2Gradient.addColorStop(0, "#f00");
+        ctx2Gradient.addColorStop(0.5, "#0f0");
+        ctx2Gradient.addColorStop(0.7, "#f0f");
+        ctx2Gradient.addColorStop(1, "#00f");
+        ctx2.fillStyle = ctx2Gradient;
+        ctx2.font = "40px 宋体"
+        ctx2.fillText("hello,world", 100, 300)
+    </script>
+</body>
+
+</html>

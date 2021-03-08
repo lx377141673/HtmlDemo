@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>填充矩形-绘制矩形边框</title>
+
+</head>
+
+<body>
+    <div>
+
+        <button type="button" id="btn1">填充矩形图案</button>
+        <button type="button" id="btn2">绘制矩形边框</button>
+        <button type="button" id="btn1_1">擦除矩形图案</button>
+        <button type="button" id="btn2_1">擦除矩形边框</button>
+        <button type="button" id="btn3">擦除画布所有内容</button>
+    </div>
+    <canvas width="600" height="500">
+        当前浏览器版本不支持, 请更新浏览器
+    </canvas>
+    <script type="text/javascript">
+        // 获取画布对象
+        var canvas = document.getElementsByTagName("canvas")[0];
+        // 设置 画布边框
+        canvas.style.border = "1px solid #000";
+        // 获取画布上下文
+        var ctx = canvas.getContext("2d");
+
+        // 填充矩形
+        document.getElementById("btn1").addEventListener("click", function() {
+            // 设置 准备填充图形的样式
+            ctx.fillStyle = "#f00";
+            // 填充矩形, x轴坐标, y轴坐标, 矩形宽度, 矩形高度
+            ctx.fillRect(100, 100, 200, 100);
+        });
+        // 绘制矩形边框
+        document.getElementById("btn2").addEventListener("click", function() {
+            // 设置 准备绘制图形的样式
+            ctx.strokeStyle = "#f00";
+            // 绘制矩形边框, x轴坐标, y轴坐标, 矩形宽度, 矩形高度
+            ctx.strokeRect(100, 250, 200, 100);
+        });
+        // 擦除矩形图案
+        document.getElementById("btn1_1").addEventListener("click", function() {
+            ctx.clearRect(100, 100, 200, 100);
+        });
+
+        // 擦除矩形边框
+        document.getElementById("btn2_1").addEventListener("click", function() {
+            // 如果按照 绘制边框的位置无法成功删除边框, 需要将删除范围增大一点
+            ctx.clearRect(100 - 1, 250 - 1, 200 + 3, 100 + 3);
+        });
+        // 擦除画布
+        document.getElementById("btn3").addEventListener("click", function() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        });
+    </script>
+</body>
+
+</html>

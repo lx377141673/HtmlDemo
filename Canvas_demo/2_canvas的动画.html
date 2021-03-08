@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>canvas 动画</title>
+    <style type="text/css">
+        canvas {
+            border: 1px solid #000
+        }
+    </style>
+</head>
+
+<body>
+    <canvas width="600" height="500">
+        当前浏览器版本不支持, 请更新浏览器
+    </canvas>
+    <script type="text/javascript">
+        // 获取 画布对象
+        var canvas = document.getElementsByTagName("canvas")[0];
+        // 获取画布上下文
+        var ctx = canvas.getContext("2d");
+
+        // 设置 准备绘制的对象的 颜色样式
+        ctx.fillStyle = "#00f";
+        // 设置偏移变量
+        var left = 0;
+        // 开启动画过程
+        // canvas 的动画思想 逻辑是 清屏 ==> 更新 ==> 渲染
+        // 动画的本质是 相关的静态画面,连续播放
+        setInterval(() => {
+            // 清除画布指定范围
+            // 从 x轴, y轴指定坐标开始, 清除指定宽高范围画布信息
+            // 参数: x轴坐标, y轴坐标, 画布指定宽度, 画布指定高度
+            // 此处可以查看 Canvas_demo\canvas_用像素格子填满canvas.html
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            // 设置 动画图案偏移, 如果偏移量大于 画布宽度,则初始化为 0
+            left = left >= canvas.width ? 0 : left;
+            // 更新增加 动画图案偏移量
+            left += 2;
+            // 填充渲染 矩形图案至 画布
+            ctx.fillRect(left, 10, 100, 100);
+        }, 10);
+    </script>
+</body>
+
+</html>

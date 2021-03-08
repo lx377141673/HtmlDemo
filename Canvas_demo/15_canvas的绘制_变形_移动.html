@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> </title>
+    <style type="text/css">
+        canvas {
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas width="600" height="500">
+        当前浏览器版本不支持, 请更新浏览器
+    </canvas>
+    <canvas width="600" height="500">
+        当前浏览器版本不支持, 请更新浏览器
+    </canvas>
+    <script type="text/javascript">
+        // 获取 画布对象
+        var canvas = document.getElementsByTagName("canvas")[0];
+        // 获取画布上下文
+        var ctx = canvas.getContext("2d");
+        // 获取 画布对象
+        var canvas2 = document.getElementsByTagName("canvas")[1];
+        // 获取画布上下文
+        var ctx2 = canvas2.getContext("2d");
+        ctx.save();
+        //  设置 按原始 x点的水平方向、原始的 y点垂直方向进行平移变换
+        // 多个 translate 可叠加使用,同时生效, 所以, 使用前, 最好保存,初始状态, 防止无法恢复, 影响其他变形
+        ctx.translate(10, 10);
+        ctx.fillRect(0, 0, 100, 100);
+
+        var dx = 10;
+        var dy = 10;
+        ctx2.save();
+        // 真正偏移的量
+        var x = dx;
+        setInterval(function() {
+            ctx2.clearRect(-100, 0, canvas2.width, canvas2.height);
+            // 每次 偏移量设置
+            ctx2.translate(dx, dy);
+            x += dx;
+            // 当偏移量
+            if (x >= canvas2.width + 100) {
+                x = dx;
+                ctx2.restore();
+                ctx2.save();
+            }
+            ctx2.fillRect(-100, 0, 100, 100);
+        }, 100);
+    </script>
+</body>
+
+</html>
