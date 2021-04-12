@@ -1,0 +1,233 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+
+/**
+解决 input 框被浏览器自动填充时的样式 ,
+用webkit默认样式替代网页样式
+ */
+
+input:-webkit-autofill {
+    -webkit-text-fill-color: #ededed !important;
+    -webkit-box-shadow: 0 0 0 1000px transparent inset !important;
+    background-color: transparent;
+    background-image: none;
+    transition: background-color 50000s ease-in-out 0s;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(#141e30, #243b55);
+}
+
+.login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 400px;
+    padding: 40px;
+    background-color: rgba(0, 0, 0, 0.2);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.4);
+}
+
+.login h2 {
+    color: #fff;
+    margin-bottom: 30px;
+}
+
+.login .login_msg {
+    width: 100%;
+    min-height: 30px;
+    margin-bottom: 10px;
+    color: #fff;
+    font-size: 12px;
+}
+
+.login .login_msg .error {
+    display: inline-block;
+    font-size: 12px;
+    color: rgb(255, 0, 0);
+}
+
+.login_box {
+    position: relative;
+    width: 100%;
+}
+
+.login .login_box input {
+    outline: none;
+    border: none;
+    width: 100%;
+    padding: 10px 25px 10px 0;
+    margin-bottom: 30px;
+    color: #fff;
+    font-size: 16px;
+    border-bottom: 1px solid #fff;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.login .login_box label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 10px 0;
+    color: #fff;
+    pointer-events: none;
+    transition: all 0.1s;
+}
+
+.login .login_box input:focus+label,
+.login .login_box input:valid+label {
+    top: -20px;
+    color: #03e9f4;
+    font-size: 12px;
+}
+
+.login .login_box .login-password {
+    position: absolute;
+    top: 5px;
+    right: 0;
+}
+
+.login .login_box .login-password span {
+    display: inline-block;
+    width: 25px;
+    height: 20px;
+    background-repeat: no-repeat;
+}
+
+.login .login_box .login-password .hide-pic {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAYAAADEtGw7AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyFpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTQyIDc5LjE2MDkyNCwgMjAxNy8wNy8xMy0wMTowNjozOSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChXaW5kb3dzKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpEQ0RBN0NCOEYxOTQxMUU5ODEwREE4QTAwRDM3NzU1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpEQ0RBN0NCOUYxOTQxMUU5ODEwREE4QTAwRDM3NzU1NyI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkRDREE3Q0I2RjE5NDExRTk4MTBEQThBMDBEMzc3NTU3IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOkRDREE3Q0I3RjE5NDExRTk4MTBEQThBMDBEMzc3NTU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+choRUQAAAYFJREFUeNpi/P//PwMtABMDjcCowUPYYAZQcrt//77/7du3+Sg169GjR+EPHz48CjIT7GJGRsalbGxsm4EWcJBr6L179/T//fs3G8jkgwcF0OBpQFvsmJiYVpw5c4aVVEMfPHigCdS7A2gOC5CbADdYTk6uHEgdBBruLyIishNouzixhj5+/NgeSB0GYgmgflag4fpwg4GSfkDKDoi/ACUcgLZfALoiGqiQEZeBL1684AaGZ9vfv3/3ArnMQJwKxHeAwdEODgVQQAMD3QXILv3z508qCwuLPlBsFsgFQEsuAy1ZDKR3/fz58wGQzcjMzKwK1OwHNQjks3OsrKxR0tLSN0EJABhXssAQuAo2GKgRxTXASLQAih0nMlVpKioq3kBPaVjTMdDQZCD+A3SdOdCViUCheUD8EYSB4jOAYhFAzYYgNUB2PjYzWHA4BOSTSbKysqeAbBBeAAxPVaAYs7y8fCaSz6YBKX6cGYQYADR4FjBC5xKb6RhHC/qhazBAgAEAEoKo/cLavi0AAAAASUVORK5CYII=');
+}
+
+.login .login_box .login-password .show-pic {
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAYAAADEtGw7AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyFpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTQyIDc5LjE2MDkyNCwgMjAxNy8wNy8xMy0wMTowNjozOSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChXaW5kb3dzKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpDOUY0REU4M0YxOTQxMUU5QjYxODk2QkIxM0EzQUQ1NSIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpDOUY0REU4NEYxOTQxMUU5QjYxODk2QkIxM0EzQUQ1NSI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkM5RjRERTgxRjE5NDExRTlCNjE4OTZCQjEzQTNBRDU1IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOkM5RjRERTgyRjE5NDExRTlCNjE4OTZCQjEzQTNBRDU1Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+3/zlbAAAAoZJREFUeNrslUtoE1EUhjOTZASJ4takSSZEUOhGcBOhaIolRBAqWlJw4VK0gkhFFNRN0ZUQBUFciwgGFUoRUm1rqULBlYugSNRMkhJXgqAU8pr4nXBHkjiCgl0IXvhzzj2Pf8499xGt0+l4NmLong0a/x6xT340TXN1lkqlJL6jqHtBHATAN/ABrLI/j2Kx2LJbriabN0hcLpfHsF9H3Q0+4n+KfGvb9ldd17fiG2aeAlHwGv/5aDS68MtWkGBYlnUbVYjWwQHTNOMknfJ6vXmfz1cCeWwnsMX4SJqYlsRLnuT/VHGtVtvcbDZnmSdJuBAOh29g75AwStwtMPwjSdPeIM5AvpjL5byJROIiq5nBvuT3+8eDweC6rirVG43GA+Q+HEcikUhWkR5U1X+h4lGqDSOTzD8TO0/LDmUymTbx1yjmGPak4tGF1FOpVE5D0iHwuFNVoVAwmFexL3QD+1um4ZvHVysWi5scOzxTwiN83QSWMYV4yNLuOkGBQGAEgiF856je7ttxVoOYBttZwX7HTuWyP3nh01WgCV4OJA8p+c7tOEHStdOe0IBLeEynxxYYGVjumkh6vtONuFqt7uqN6xnCY3WJabwsYaK3x7TlBWKt3W5nXXqsgyxqjc1a6e0xIi18mnrddEhn5dBT4UQoFJpTNy9NK+bAK3p5pV6vv0fGmc/gTpB7mDP9RJFOMr8H8hQ17vTYNgxjErnCWX5M0LTsPNc1D9EYm7Gl1WotopcJXwLb0FNCKueY+EvE3Me+rHjsvistN4fKbzI/ib6K6TLJz1VPd2AL4vvE5SnKh7GlILyKbQ/zO1R6Fr3xW28FPnlwnv3pW+FK/Ndet///IDK+CzAAuReAfomVzPMAAAAASUVORK5CYII=");
+}
+
+.login .login_box input[type="text"]~.login-password .hide-pic,
+.login .login_box input[type="password"]~.login-password .show-pic {
+    display: none;
+}
+
+.login .login_box input[type="text"]~.login-password .show-pic,
+.login .login_box input[type="password"]~.login-password .hide-pic {
+    display: inline-block;
+}
+
+.login a {
+    overflow: hidden;
+    position: relative;
+    padding: 10px 50px;
+    color: #03e9f4;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.login a:hover {
+    color: #fff;
+    border-radius: 5px;
+    background-color: #03e9f4;
+    box-shadow: 0 0 5px #03e9f4, 0 0 25px #03e9f4, 0 0 50px #03e9f4, 0 0 100px #03e9f4;
+}
+
+.login a:active {
+    background-color: #03c4f4;
+    box-shadow: 0 0 5px #03c4f4, 0 0 25px #03c4f4, 0 0 50px #03c4f4, 0 0 100px #03c4f4;
+    color: #03e9f4;
+}
+
+.login a:active span {
+    background: #03c4f4;
+}
+
+.login a span {
+    position: absolute;
+}
+
+.login a span:first-child {
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 2px;
+    /* to right 就是往右边 下面的同理 */
+    background: linear-gradient(to right, transparent, #03e9f4);
+    /* 动画 名称 时长 linear是匀速运动 infinite是无限次运动 */
+    animation: move1 1s linear infinite;
+}
+
+.login a span:nth-child(2) {
+    right: 0;
+    top: -100%;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(transparent, #03e9f4);
+    /* 这里多了个0.25s其实是延迟时间 */
+    animation: move2 1s linear 0.25s infinite;
+}
+
+.login a span:nth-child(3) {
+    right: -100%;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(to left, transparent, #03e9f4);
+    animation: move3 1s linear 0.5s infinite;
+}
+
+.login a span:last-child {
+    left: 0;
+    bottom: -100%;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(#03e9f4, transparent);
+    animation: move4 1s linear 0.75s infinite;
+}
+
+
+/* 写一下动画 再坚持一下 视频马上就完了 */
+
+@keyframes move1 {
+    0% {
+        left: -100%;
+    }
+    50%,
+    100% {
+        left: 100%;
+    }
+}
+
+@keyframes move2 {
+    0% {
+        top: -100%;
+    }
+    50%,
+    100% {
+        top: 100%;
+    }
+}
+
+@keyframes move3 {
+    0% {
+        right: -100%;
+    }
+    50%,
+    100% {
+        right: 100%;
+    }
+}
+
+@keyframes move4 {
+    0% {
+        bottom: -100%;
+    }
+    50%,
+    100% {
+        bottom: 100%;
+    }
+}

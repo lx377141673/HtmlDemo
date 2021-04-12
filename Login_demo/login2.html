@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="login2.css?v=1" />
+
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="login">
+        <h2>用户登录</h2>
+        <div class="login_msg">
+            <!-- 返回消息 -->
+        </div>
+        <div class="login_box">
+            <input type="text" required="required" />
+            <label>用户名</label>
+        </div>
+        <div class="login_box">
+            <input type="password" required="required" />
+            <label>密码</label>
+            <em class="login-password">
+            <span class="hide-pic"></span>
+            <span class="show-pic"></span>
+            </em>
+        </div>
+        <a href="javasciprt:void(0)">
+            登录
+            <span></span><span></span><span></span><span></span>
+        </a>
+    </div>
+
+
+    <div>
+        <button type="button" onclick="msg('test','success',2)">成功消息</button>
+        <button type="button" onclick="msg('test','info',2)">消息</button>
+        <button type="button" onclick="msg('test','warning',2)">警告消息</button>
+        <button type="button" onclick="msg('test','danger',2)">错误消息</button>
+        <button type="button" onclick="msg('test','primary',2)">主要消息</button>
+        <button type="button" onclick="msg('test','secondary',2)">次要消息</button>
+        <button type="button" onclick="msg('test','dark',2)">深灰色消息</button>
+        <button type="button" onclick="msg('test','light',2)">灰色消息</button>
+    </div>
+
+    <script src="login.js"></script>
+
+
+</body>
+
+
+
+</html>

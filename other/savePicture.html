@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript" src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script type="text/javascript">
+        var a;
+
+        function domToCanvas(dom, callback) {
+            html2canvas(dom).then(canvas => {
+                callback(canvas);
+            });
+        }
+
+        function domToBase64(dom, callback) {
+            domToCanvas(dom, canvas => {
+                callback(canvas.toDataURL("img/png", 1));
+            })
+        }
+
+        function domToImage(dom, callback) {
+            domToBase64(dom, base64 => {
+                let img = new Image;
+                img.src = base64;
+                callback(img);
+            })
+        }
+
+        function saveBase64(base64) {
+            var img = new Image();
+            img.src = base64;
+
+            img.onload = () => {
+                savePicture(img.src, "保存图片");
+            }
+        }
+
+        function saveImgTag(imgDom) {
+            savePicture(imgDom.src, imgDom.title);
+        }
+
+        function savePicture(Url, title = "保存图片") {
+            title = title ? title : "保存图片"
+
+            var blob = new Blob([''], {
+                type: 'application/octet-stream'
+            });
+            var url = URL.createObjectURL(blob);
+            var a = document.createElement('a');
+            a.href = Url;
+            a.title = title;
+            // a.download = Url.replace(/(.*\/)*([^.]+.*)/ig, "$2").split("?")[0];
+            a.download = title;
+            var e = document.createEvent('MouseEvents');
+            e.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+            a.dispatchEvent(e);
+            URL.revokeObjectURL(url);
+        }
+
+
+        function saveImg() {
+
+        }
+    </script>
+</head>
+
+<body>
+    <button type="button" onclick="saveImg()">保存图片</button>
+    <img src="/img/格子图片.png" />
+</body>
+
+</html>
